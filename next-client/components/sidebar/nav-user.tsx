@@ -1,6 +1,14 @@
 'use client';
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
+import {
+  BadgeCheck,
+  Bell,
+  ChevronsUpDown,
+  CreditCard,
+  LogOut,
+  Sparkles,
+  UserRoundPenIcon,
+} from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -22,6 +30,7 @@ import { ThemeToggle } from '../shared/theme-toggle';
 import { useAuthStore } from '@/store/authStore';
 import { clearAccessToken } from '@/actions';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface NavUserProps {
   user: {
@@ -82,6 +91,12 @@ export function NavUser({ user }: NavUserProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <Link href='/account' className='w-full'>
+                <DropdownMenuItem>
+                  <UserRoundPenIcon />
+                  My Account
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>
                 <ThemeToggle type='button' />
               </DropdownMenuItem>
