@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
-import { IBM_Plex_Mono, Inter, Libre_Baskerville } from 'next/font/google';
-import './globals.css';
 import Providers from '@/components/providers';
+import type { Metadata } from 'next';
+import { Libre_Baskerville, Poppins, Roboto } from 'next/font/google';
+import './globals.css';
 
-const fontSans = Inter({
+const fontSans = Poppins({
   subsets: ['latin'],
   variable: '--font-sans',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -15,7 +15,7 @@ const fontSerif = Libre_Baskerville({
   weight: ['400', '700'],
 });
 
-const fontMono = IBM_Plex_Mono({
+const fontMono = Roboto({
   subsets: ['latin'],
   variable: '--font-mono',
   weight: ['100', '200', '300', '400', '500', '600', '700'],
