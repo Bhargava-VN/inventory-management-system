@@ -80,7 +80,7 @@ interface InfoItemProps {
 const InfoItem = ({ IconComponent, label, value }: InfoItemProps) => {
   return (
     <div className='flex items-start gap-2.5'>
-      <div className='w-8 h-8 rounded-full bg-foreground flex items-center justify-center flex-shrink-0 mt-0.5'>
+      <div className='w-8 h-8 rounded-full bg-foreground flex items-center justify-center shrink-0 mt-0.5'>
         <IconComponent className='text-background w-4' />
       </div>
       <div>
