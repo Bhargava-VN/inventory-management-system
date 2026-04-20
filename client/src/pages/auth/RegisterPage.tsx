@@ -1,5 +1,6 @@
 import { SpinnerIcon } from '@phosphor-icons/react';
-import { Button, Flex } from 'antd';
+import { Button, Card, Flex } from 'antd';
+import { UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toastMessage from '../../lib/toastMessage';
@@ -20,17 +21,17 @@ const RegisterPage = () => {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const res = await userRegistration(data).unwrap();
-
       if (data.password !== data.confirmPassword) {
         toastMessage({ icon: 'error', text: 'Password and confirm password must be same!' });
         return;
       }
+
+      const res = await userRegistration(data).unwrap();
+
       if (res.statusCode === 201) {
         const user = decodeToken(res.data.token);
         dispatch(loginUser({ token: res.data.token, user }));
         navigate('/');
-        console.log(res);
         toastMessage({ icon: 'success', text: res.message });
       }
     } catch (error: any) {
@@ -40,60 +41,141 @@ const RegisterPage = () => {
     }
   };
 
+  const InputField = ({ 
+    icon: Icon, 
+    label, 
+    name, 
+    type = 'text', 
+    placeholder,
+    register: registerFn 
+  }: any) => (
+    <div style={{marginBottom: '1.5rem'}}>
+      <label style={{display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#2d3436'}}>
+        {label}
+      </label>
+      <div style={{position: 'relative'}}>
+        <Icon style={{
+          position: 'absolute',
+          left: '12px',
+          top: '12px',
+          color: '#1890ff',
+          fontSize: '16px',
+        }} />
+        <input
+          type={type}
+          {...registerFn(name, { required: true })}
+          placeholder={placeholder}
+          className={`input-field ${errors[name] ? 'input-field-error' : ''}`}
+          style={{paddingLeft: '36px'}}
+        />
+      </div>
+    </div>
+  );
+
   return (
-    <Flex justify='center' align='center' style={{ height: '100vh' }}>
-      <Flex
-        vertical
+    <Flex
+      justify='center'
+      align='center'
+      style={{
+        height: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '1rem',
+      }}
+    >
+      <Card
         style={{
-          width: '400px',
-          padding: '3rem',
-          border: '1px solid #164863',
-          borderRadius: '.6rem',
+          width: '100%',
+          maxWidth: '450px',
+          borderRadius: '16px',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+          border: 'none',
         }}
       >
-        <h1 style={{ marginBottom: '.7rem', textAlign: 'center', textTransform: 'uppercase' }}>
-          Register
-        </h1>
+        <Flex vertical align='center' style={{marginBottom: '2rem'}}>
+          <div style={{
+            fontSize: '3rem',
+            marginBottom: '1rem',
+          }}>
+            🚀
+          </div>
+          <h1 style={{
+            marginBottom: '0.5rem',
+            textAlign: 'center',
+            fontSize: '28px',
+            fontWeight: 700,
+            color: '#2d3436',
+          }}>
+            Create Account
+          </h1>
+          <p style={{color: '#9ca3af', textAlign: 'center', margin: 0}}>
+            Join us to manage your inventory
+          </p>
+        </Flex>
+
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type='text'
-            {...register('name', { required: true })}
-            placeholder='Your Name*'
-            className={`input-field ${errors['name'] ? 'input-field-error' : ''}`}
+          <InputField
+            icon={UserOutlined}
+            label='Full Name'
+            name='name'
+            placeholder='Enter your name'
+            register={register}
           />
-          <input
-            type='text'
-            {...register('email', { required: true })}
-            placeholder='Your Email*'
-            className={`input-field ${errors['email'] ? 'input-field-error' : ''}`}
+
+          <InputField
+            icon={MailOutlined}
+            label='Email Address'
+            name='email'
+            type='email'
+            placeholder='Enter your email'
+            register={register}
           />
-          <input
+
+          <InputField
+            icon={LockOutlined}
+            label='Password'
+            name='password'
             type='password'
-            placeholder='Your Password*'
-            {...register('password', { required: true })}
-            className={`input-field ${errors['password'] ? 'input-field-error' : ''}`}
+            placeholder='Create a password'
+            register={register}
           />
-          <input
+
+          <InputField
+            icon={LockOutlined}
+            label='Confirm Password'
+            name='confirmPassword'
             type='password'
-            placeholder='Confirm Password*'
-            {...register('confirmPassword', { required: true })}
-            className={`input-field ${errors['confirmPassword'] ? 'input-field-error' : ''}`}
+            placeholder='Confirm your password'
+            register={register}
           />
-          <Flex justify='center'>
-            <Button
-              htmlType='submit'
-              type='primary'
-              style={{ textTransform: 'uppercase', fontWeight: 'bold', width: '100%' }}
-            >
-              {isLoading && <SpinnerIcon className='spin' weight='bold' />}
-              Register
-            </Button>
-          </Flex>
+
+          <Button
+            htmlType='submit'
+            type='primary'
+            disabled={isLoading}
+            style={{
+              width: '100%',
+              height: '44px',
+              fontSize: '16px',
+              fontWeight: 600,
+              background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              border: 'none',
+              marginBottom: '1.5rem',
+            }}
+          >
+            {isLoading && <SpinnerIcon className='spin' weight='bold' />}
+            {isLoading ? ' Creating Account...' : 'Create Account'}
+          </Button>
         </form>
-        <p style={{ marginTop: '1rem' }}>
-          Already have an account? <Link to='/login'>Login Here</Link>
-        </p>
-      </Flex>
+
+        <div style={{textAlign: 'center', paddingTop: '1rem', borderTop: '1px solid #e0e0e0'}}>
+          <p style={{marginBottom: 0, color: '#2d3436'}}>
+            Already have an account?{' '}
+            <Link to='/login' style={{color: '#1890ff', fontWeight: 600, textDecoration: 'none'}}>
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </Card>
     </Flex>
   );
 };

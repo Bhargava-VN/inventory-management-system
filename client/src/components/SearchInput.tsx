@@ -18,22 +18,27 @@ const SearchInput = ({ setQuery, placeholder = 'Search…' }: SearchInputProps) 
 
   useEffect(() => {
     const debounceId = setTimeout(() => {
-      setQuery((prev) => ({ ...prev, search: searchTerm }));
+      setQuery((prev) => ({ ...prev, search: searchTerm, page: 1 }));
     }, 500);
 
     return () => {
       clearTimeout(debounceId);
     };
-  }, [searchTerm]);
+  }, [searchTerm, setQuery]);
 
   return (
     <div>
       <Input
         size='large'
-        style={{ minWidth: '300px' }}
+        style={{
+          minWidth: '300px',
+          borderRadius: '8px',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+        }}
         placeholder={placeholder}
         onChange={(e) => setSearchTerm(e.target.value)}
-        prefix={<SearchOutlined />}
+        prefix={<SearchOutlined style={{color: '#1890ff', marginRight: '0.5rem'}} />}
+        allowClear
       />
     </div>
   );

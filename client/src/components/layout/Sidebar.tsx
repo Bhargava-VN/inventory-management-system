@@ -31,63 +31,88 @@ const Sidebar = () => {
             setShowLogoutBtn(!collapsed);
           }
         }}
-        width='220px'
+        width='260px'
         style={{
-          backgroundColor: '#164863',
+          background: 'linear-gradient(135deg, #164863 0%, #1a5276 100%)',
           position: 'relative',
+          boxShadow: '2px 0 8px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <div className='demo-logo-vertical'>
-          <h1 style={{color: '#fff', padding: '1rem', fontSize: '1.8rem', textAlign: 'center'}}>
-            WELCOME
+        <div style={{padding: '1.5rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
+          <h1 style={{
+            color: '#fff',
+            fontSize: '1.5rem',
+            fontWeight: 700,
+            textAlign: 'center',
+            margin: 0,
+            letterSpacing: '0.5px',
+            textTransform: 'uppercase',
+          }}>
+            📦 Inventory
           </h1>
+          <p style={{color: 'rgba(255,255,255,0.7)', textAlign: 'center', margin: '0.5rem 0 0 0', fontSize: '0.85rem'}}>
+            Management System
+          </p>
         </div>
         <Menu
           theme='dark'
           mode='inline'
-          style={{backgroundColor: '#164863', fontWeight: '700'}}
+          style={{
+            background: 'transparent',
+            fontWeight: 600,
+            border: 'none',
+            marginTop: '1rem',
+          }}
           defaultSelectedKeys={['Dashboard']}
           items={sidebarItems}
         />
         {showLogoutBtn && (
           <div
             style={{
-              margin: 'auto',
               position: 'absolute',
               bottom: 0,
-              padding: '1rem',
+              padding: '1.5rem',
               display: 'flex',
               width: '100%',
               justifyContent: 'center',
+              background: 'linear-gradient(180deg, transparent, rgba(0,0,0,0.1))',
+              borderTop: '1px solid rgba(255,255,255,0.1)',
             }}
           >
             <Button
               type='primary'
               style={{
                 width: '100%',
-                backgroundColor: 'cyan',
-                color: '#000',
+                background: 'linear-gradient(135deg, #1890ff, #177ddc)',
+                border: 'none',
                 fontWeight: 600,
-                textTransform: 'uppercase',
+                height: '40px',
+                fontSize: '14px',
               }}
               onClick={handleClick}
             >
-              <LogoutOutlined />
+              <LogoutOutlined style={{marginRight: '0.5rem'}} />
               Logout
             </Button>
           </div>
         )}
       </Sider>
       <Layout>
-        <Content style={{padding: '2rem', background: '#BBE1FA'}}>
+        <Content style={{
+          padding: '2rem',
+          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+          backgroundAttachment: 'fixed',
+          overflowY: 'auto',
+        }}>
           <div
             style={{
-              padding: '1rem',
+              padding: '2rem',
               maxHeight: 'calc(100vh - 4rem)',
               minHeight: 'calc(100vh - 4rem)',
               background: '#fff',
-              borderRadius: '1rem',
+              borderRadius: '12px',
               overflow: 'auto',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
             }}
           >
             <Outlet />
