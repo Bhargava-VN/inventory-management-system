@@ -2,8 +2,6 @@
 
 A modern, full-stack inventory management system built with the MERN stack and contemporary UI/UX design.
 
-**Live Demo:** https://inventory-navy.vercel.app
-
 ---
 
 ## 🚀 Quick Start (One Click!)
@@ -386,23 +384,3 @@ Having issues? Follow these steps:
 5. **Deploy:** Push to Vercel (frontend) and Heroku/Railway (backend)
 
 ---
-
-**Happy Coding! 🚀**
-
-   npm run dev
-
-```
-
-4. Install the dependencies and run frontend
-
-```bash
-
-   cd client # or go to client folder and open the terminal in this directory
-
-   npm install
-
-   # then
-
-   npm run dev
-
-```
